@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.hbc.sp</groupId>
-	<artifactId>eureka-client</artifactId>
+	<artifactId>sp-order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 

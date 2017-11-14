@@ -109,7 +109,8 @@
 
 
 	<modules>
-		<module>eureka-client</module>
+		<module>sp-search</module>
+		<module>sp-order</module>
 		<module>eureka-service</module>
 	</modules>
 </project>
