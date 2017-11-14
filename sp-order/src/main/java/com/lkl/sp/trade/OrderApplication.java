@@ -1,4 +1,4 @@
-package com.lkl.sp.search;
+package com.lkl.sp.trade;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableFeignClients
 @ComponentScan(basePackages = { "com.lkl" })
-public class EurekaClientApplication {
+public class OrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EurekaClientApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
 }
 
