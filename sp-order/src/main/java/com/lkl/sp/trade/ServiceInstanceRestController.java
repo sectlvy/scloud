@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lkl.sp.db.dc.mapping.gen.SpOrderMapper;
@@ -20,7 +21,7 @@ class ServiceInstanceRestController {
 	@Autowired
 	SpOrderMapper spOrderMapper;
 	@RequestMapping("/trade/queryOrder")
-	public List<SpOrder> serviceInstancesByApplicationName(@PathVariable String applicationName) {
+	public List<SpOrder> serviceInstancesByApplicationName(@RequestParam String applicationName) {
 		return spOrderMapper.selectByExample(new SpOrderExample());
 	}
 }

@@ -17,7 +17,7 @@ class ServiceInstanceRestController {
 
 	@RequestMapping("/search/order")
 	public List<SpOrder> serviceInstancesByApplicationName() {
-		List<SpOrder> slist = orderRemoteInterface.sporders();
+		List<SpOrder> slist = orderRemoteInterface.sporders("a");
 		return slist;
 	}
 }
