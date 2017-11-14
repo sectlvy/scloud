@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lkl.sp.db.dc.mapping.genx.dianxiao.DxZidanRspXml" >
+
+	 <select id="getAllSpOrder"  parameterType="String"  resultType ="com.lkl.sp.db.dc.mapping.gen.bean.SpOrder"  >
+      select * from sp_order;
+    </select>
+    
+    
+</mapper>
