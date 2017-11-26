@@ -1,10 +1,11 @@
 package com.lkl.sp.trade;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,12 @@ class ServiceInstanceRestController {
 	SpOrderMapper spOrderMapper;
 	@RequestMapping("/trade/queryOrder")
 	public List<SpOrder> serviceInstancesByApplicationName(@RequestParam String applicationName) {
-		return spOrderMapper.selectByExample(new SpOrderExample());
+		Random random = new Random();
+		int randomInt = random.nextInt(10);
+		if (randomInt < 8) { // 模拟调用失败情况
+			throw new RuntimeException("call dependency service fail.");
+		} else {
+			return spOrderMapper.selectByExample(new SpOrderExample());
+		}
 	}
 }

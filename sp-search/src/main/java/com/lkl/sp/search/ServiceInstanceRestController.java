@@ -19,19 +19,9 @@ class ServiceInstanceRestController {
 	private OrderRemoteInterface orderRemoteInterface;
 
 	@RequestMapping("/search/order")
-	@HystrixCommand(fallbackMethod = "fallback")
 	public List<SpOrder> serviceInstancesByApplicationName() {
 		List<SpOrder> slist = orderRemoteInterface.sporders("a");
-		Random random = new Random();
-		int randomInt = random.nextInt(10);
-		if (randomInt < 8) { // 模拟调用失败情况
-			throw new RuntimeException("call dependency service fail.");
-		} else {
-			return slist;
-		}
+		return slist;
 	}
 
-	public  List<SpOrder> fallback() {
-		return new ArrayList<SpOrder>();
-	}
 }
