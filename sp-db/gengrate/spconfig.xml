@@ -41,6 +41,7 @@
 		 		 
 		<table schema="" tableName="sp_user" domainObjectName="SpUser"></table>
 		<table schema="" tableName="sp_order" domainObjectName="SpOrder"></table>
+		<table schema="" tableName="sp_payment" domainObjectName="SpPayment"></table>
 	</context>
 
 </generatorConfiguration>

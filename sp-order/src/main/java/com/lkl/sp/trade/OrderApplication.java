@@ -9,8 +9,6 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.lkl.sp.db.redis.JedisTemplate;
-
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients
@@ -21,11 +19,6 @@ public class OrderApplication {
 
     public static void main(String[] args) {
     	ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(OrderApplication.class, args);
-    	JedisTemplate jedisTemplate = configurableApplicationContext.getBean(JedisTemplate.class);
-    	
-    	jedisTemplate.set("a", "d");
-    	
-    	System.out.println(jedisTemplate.get("a"));
     }
 }
 
