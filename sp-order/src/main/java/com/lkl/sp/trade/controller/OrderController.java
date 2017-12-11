@@ -36,6 +36,6 @@ class OrderController {
 	
 	@RequestMapping(value = {"v1.0/submitOrder"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public ReturnResult submitOrder(){
-		
+		return null;
 	}
 }
