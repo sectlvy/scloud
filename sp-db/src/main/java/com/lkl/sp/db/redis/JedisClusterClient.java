@@ -12,6 +12,10 @@ import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
 
+import com.lkl.sp.base.exceptions.BaseException;
+import com.lkl.sp.base.exceptions.ExpLevel;
+import com.lkl.sp.base.exceptions.SpReturnCodeEnum;
+
 @Component
 public class JedisClusterClient {
 	private static Logger log = LoggerFactory.getLogger(JedisClusterClient.class);
@@ -54,7 +58,26 @@ public class JedisClusterClient {
 			}
 		}
 	}
-	
+	public Long increKeyExpire(String key){
+		JedisCluster jedisCluster = null;
+		try{
+			jedisCluster = getJcluster();
+			jedisCluster.expire(key, 1);
+			Long revalue = jedisCluster.incr(key);
+			return revalue;
+		}catch(Exception e){
+			throw new BaseException(SpReturnCodeEnum.REDIS_EXP_PAR,ExpLevel.EXPLOG," redis获取键值错误");
+		}finally{
+			if(jedisCluster!=null){
+				try {
+					jedisCluster.close();
+				} catch (IOException e) {
+					log.error("",e);
+				}
+			}
+		}
+		
+	}
 	public String getKey(String key){
 		JedisCluster jedisCluster = null;
 		try{

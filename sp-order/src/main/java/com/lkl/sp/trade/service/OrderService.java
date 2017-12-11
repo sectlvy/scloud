@@ -8,6 +8,7 @@ import com.lkl.sp.db.dc.mapping.gen.SpOrderMapper;
 import com.lkl.sp.db.dc.mapping.gen.bean.SpOrder;
 import com.lkl.sp.db.dc.mapping.gen.bean.SpOrderExample;
 import com.lkl.sp.db.redis.JedisClusterClient;
+import com.lkl.sp.trade.foreign.sgservice.GserviceRemoteController;
 
 @Component
 public class OrderService {
@@ -15,7 +16,8 @@ public class OrderService {
 	SpOrderMapper spOrderMapper;
 	@Autowired
 	JedisClusterClient jedisClusterClient;
-	
+	@Autowired
+	GserviceRemoteController gserviceRemoteController;
 	public ListServiceRsp<SpOrder> queryOrders(){
 		ListServiceRsp<SpOrder> listServiceRsp = new ListServiceRsp<SpOrder>();
 		

@@ -11,15 +11,16 @@ public class BaseException extends RuntimeException {
 	 * @param returnCode
 	 * @param args
 	 */
-	public BaseException(ReturnCode returnCode,ExpLevel expLevel) {
+	public BaseException(ReturnCode returnCode,ExpLevel expLevel,String... args) {
 		this.expLevel = expLevel;
 		this.returnCode = returnCode;
+		this.args = args;
 		
 	}
 	
 	@Override
 	public String getMessage() {
-		String statusLine = String.format(" 错误码为%s 异常信息为 %s ", returnCode.getCode(), returnCode.getMessage());
+		String statusLine = String.format(" 错误码为%s 异常信息为 %s ", returnCode.getCode(), args);
 		StringBuilder message = new StringBuilder(statusLine);
 		return message.toString();
 	}
