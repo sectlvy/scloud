@@ -1,7 +1,7 @@
 package com.lkl.sp.base.exceptions;
 
 
-public enum SpReturnCodeEnum implements ReturnCode {
+public enum SpReturnCodeEnum {
 	
 	REDIS_EXP(99002, "REDIS 发送失败"),
 	HTTPCLIENT_NOT_VALID(99001, "网络发送失败"), 
@@ -20,12 +20,10 @@ public enum SpReturnCodeEnum implements ReturnCode {
 		this.message = message;
 	};
 
-	@Override
 	public int getCode() {
 		return this.code;
 	}
 
-	@Override
 	public String getMessage() {
 		return this.message;
 	}

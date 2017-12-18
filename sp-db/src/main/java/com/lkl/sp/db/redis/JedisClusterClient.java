@@ -12,7 +12,7 @@ import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
 
-import com.lkl.sp.base.exceptions.BaseException;
+import com.lkl.sp.base.exceptions.SpException;
 import com.lkl.sp.base.exceptions.ExpLevel;
 import com.lkl.sp.base.exceptions.SpReturnCodeEnum;
 
@@ -66,7 +66,7 @@ public class JedisClusterClient {
 			Long revalue = jedisCluster.incr(key);
 			return revalue;
 		}catch(Exception e){
-			throw new BaseException(SpReturnCodeEnum.REDIS_EXP_PAR,ExpLevel.EXPLOG," redis获取键值错误");
+			throw new SpException(SpReturnCodeEnum.REDIS_EXP_PAR,ExpLevel.EXPLOG," redis获取键值错误");
 		}finally{
 			if(jedisCluster!=null){
 				try {

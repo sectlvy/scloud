@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import com.alibaba.fastjson.support.spring.FastJsonJsonView;
-import com.lkl.sp.base.exceptions.BaseException;
+import com.lkl.sp.base.exceptions.SpException;
 
 public class SpExceptionResolver extends DefaultHandlerExceptionResolver {
 
@@ -21,8 +21,8 @@ public class SpExceptionResolver extends DefaultHandlerExceptionResolver {
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-		if(ex instanceof BaseException){
-			BaseException be = (BaseException)ex;
+		if(ex instanceof SpException){
+			SpException be = (SpException)ex;
 			ModelAndView result = new ModelAndView(new FastJsonJsonView());
 			result.addObject("status", be.returnCode.getCode());
 			result.addObject("message", be.getMessage());

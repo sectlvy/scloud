@@ -11,13 +11,13 @@ import com.lkl.sp.base.common.ReturnResult;
 @FeignClient(name= "sp-gservice")
 public interface GserviceRemoteController {
 	@RequestMapping(value = {"v1.0/genNo"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public ReturnResult genNo(@RequestParam String pre);
+	public ReturnResult<String> genNo(@RequestParam("pre") String pre);
     
     @Component
     static class HystrixClientFallback implements GserviceRemoteController {
 
 		@Override
-		public ReturnResult genNo(String pre) {
+		public ReturnResult<String> genNo(String pre) {
 			return null;
 		}
     	

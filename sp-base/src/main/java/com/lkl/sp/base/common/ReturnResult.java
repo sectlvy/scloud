@@ -1,84 +1,72 @@
 package com.lkl.sp.base.common;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ReturnResult implements Serializable {
+public class ReturnResult<T> implements Serializable {
 	private static final long serialVersionUID = -107107916660163194L;
-	private Object data;
+	private T data;
 	private String message; // 状态描述信息
 	private Integer status = 200; // 响应状态码 默认200代表成功
 
-	private Map<String, Object> rmap = new HashMap<>();
+	private Integer totalSize;
+	private List<T> tlist = new ArrayList<>();
 
 	public ReturnResult() {
 	}
 
-	public ReturnResult(Object data) {
+	public ReturnResult(T data) {
 		this.data = data;
 	}
 
-	public <T> ReturnResult(Integer totalSize, List<T> resultBean) {
-		rmap.put("totalSize", totalSize);
-		rmap.put("resultBean", resultBean);
-		this.data = rmap;
+	public ReturnResult(Integer totalSize, List<T> tlist) {
+		this.totalSize = totalSize;
+		this.tlist = tlist;
 	}
 
-	public <T> void setData(List<T> resultBean, Integer totalSize) {
-		rmap.put("totalSize", totalSize);
-		rmap.put("resultBean", resultBean);
-		this.data = rmap;
-	}
-
-	public void setData(String jkey, Object dvalue) {
-		rmap.put(jkey, dvalue);
-		this.data = rmap;
-	}
-
-	/**
-	 * @return the data
-	 */
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	/**
-	 * @param data
-	 *            the data to set
-	 */
-	public void setData(Object data) {
+	public void setData(ListServiceRsp<T> listServiceRsp) {
+		this.totalSize = listServiceRsp.getTsize();
+		this.tlist = listServiceRsp.getDatalist();
+	}
+	public void setData(T data) {
 		this.data = data;
 	}
 
-	/**
-	 * @return the message
-	 */
 	public String getMessage() {
 		return message;
 	}
 
-	/**
-	 * @param message
-	 *            the message to set
-	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	/**
-	 * @return the status
-	 */
 	public Integer getStatus() {
 		return status;
 	}
 
-	/**
-	 * @param status
-	 *            the status to set
-	 */
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public Integer getTotalSize() {
+		return totalSize;
+	}
+
+	public void setTotalSize(Integer totalSize) {
+		this.totalSize = totalSize;
+	}
+
+	public List<T> getTlist() {
+		return tlist;
+	}
+
+	public void setTlist(List<T> tlist) {
+		this.tlist = tlist;
+	}
+
 }

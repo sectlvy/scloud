@@ -20,8 +20,8 @@ class GserviceController {
 	IDGenService genService;
 	
 	@RequestMapping(value = {"v1.0/genNo"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public ReturnResult genNo(@RequestParam String pre){
-		ReturnResult returnResult = new ReturnResult();
+	public ReturnResult<String> genNo(@RequestParam("pre") String pre){
+		ReturnResult<String> returnResult = new ReturnResult<String>();
 		returnResult.setData(genService.getGenNo(pre));
 		return returnResult;
 	}
