@@ -10,7 +10,7 @@ import com.lkl.sp.base.common.ReturnResult;
 
 @FeignClient(name= "sp-gservice")
 public interface GserviceRemoteController {
-	@RequestMapping(value = {"v1.0/genNo"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = {"gservice/v1.0/genNo"}, method = RequestMethod.POST)
 	public ReturnResult<String> genNo(@RequestParam("pre") String pre);
     
     @Component
@@ -18,7 +18,9 @@ public interface GserviceRemoteController {
 
 		@Override
 		public ReturnResult<String> genNo(String pre) {
-			return null;
+			ReturnResult<String> rs = new ReturnResult<String>();
+			rs.setData("无数据");
+			return rs;
 		}
     	
     }
