@@ -1,91 +1,77 @@
+#!/bin/bash
+#这里可替换为你自己的执行程序，其他代码无需更改
+APP_NAME=sp-gservice-0.0.1-SNAPSHOT.jar
+APP_PATH=/home/sa/spcloud/
 VA_OPTIONS_INITIAL=-Xms128M
 JAVA_OPTIONS_MAX=-Xmx512M
-_JAR_KEYWORDS=sp-gservice-0.0.1-SNAPSHOT.jar
-APP_NAME=sp-gservice
-PATH=/data/server/hadoop/scloud/scloud/
-APPLICATION_FILE=/opt/scpip_monitor/application.properties
-PID=$(ps aux | grep ${_JAR_KEYWORDS} | grep -v grep | awk '{print $2}' )
-ALARM_CONFIG_FILE=`pwd`/alarmConfig.yaml
- 
- 
-function check_if_process_is_running {
- if [ "$PID" = "" ]; then
- return 1
- fi
- ps -p $PID | grep "java"
- return $?
+#使用说明，用来提示输入参数
+usage() {
+    echo "Usage: sh 执行脚本.sh [start|stop|restart|status]"
+    exit 1
 }
- 
- 
-`cd $PATH`
-case "$1" in
- status)
- if check_if_process_is_running
- then
- echo -e "\033[32m $APP_NAME is running \033[0m"
- else
- echo -e "\033[32m $APP_NAME not running \033[0m"
- fi
- ;;
- stop)
- if ! check_if_process_is_running
- then
- echo -e "\033[32m $APP_NAME already stopped \033[0m"
- exit 0
- fi
- kill -9 $PID
- echo -e "\033[32m Waiting for process to stop \033[0m"
- NOT_KILLED=1
- for i in {1..20}; do
- if check_if_process_is_running
- then
- echo -ne "\033[32m . \033[0m"
- sleep 1
- else
- NOT_KILLED=0
- fi
- done
- echo
- if [ $NOT_KILLED = 1 ]
- then
- echo -e "\033[32m Cannot kill process \033[0m"
- exit 1
- fi
- echo -e "\033[32m $APP_NAME already stopped \033[0m"
- ;;
- start)
- if [ "$PID" != "" ] && check_if_process_is_running
- then
- echo -e "\033[32m $APP_NAME already running \033[0m"
- exit 1
- fi
-#nohup java -jar -Dalarm.config.file=$ALARM_CONFIG_FILE $JAVA_OPTIONS_INITIAL $JAVA_OPTIONS_MAX $_JAR_KEYWORDS --spring.config.location=$APPLICATION_FILE > /dev/null 2>&1 &
 
- nohup java -jar -Dalarm.config.file=$ALARM_CONFIG_FILE $JAVA_OPTIONS_INITIAL $JAVA_OPTIONS_MAX $_JAR_KEYWORDS  > /dev/null 2>&1 & 
- echo -ne "\033[32m Starting \033[0m"
- for i in {1..20}; do
- echo -ne "\033[32m.\033[0m"
- sleep 1
- done
- if check_if_process_is_running 
- then
- echo -e "\033[32m $APP_NAME fail \033[0m"
- else
- echo -e "\033[32m $APP_NAME started \033[0m"
- fi
- ;;
- restart)
- $0 stop
- if [ $? = 1 ]
- then
- exit 1
- fi
- $0 start
- ;;
- *)
- echo "Usage: $0 {start|stop|restart|status}"
- exit 1
+#检查程序是否在运行
+is_exist(){
+  pid=`ps -ef|grep $APP_NAME|grep -v grep|awk '{print $2}' `
+  #如果不存在返回1，存在返回0     
+  if [ -z "${pid}" ]; then
+   return 1
+  else
+    return 0
+  fi
+}
+
+#启动方法
+start(){
+  is_exist
+  if [ $? -eq "0" ]; then
+    echo "${APP_NAME} is already running. pid=${pid} ."
+  else
+    nohup java -jar $VA_OPTIONS_INITIAL $JAVA_OPTIONS_MAX $APP_PATH$APP_NAME > /dev/null 2>&1 &
+  fi
+}
+
+#停止方法
+stop(){
+  is_exist
+  if [ $? -eq "0" ]; then
+    kill -9 $pid
+  else
+    echo "${APP_NAME} is not running"
+  fi  
+}
+
+#输出运行状态
+status(){
+  is_exist
+  if [ $? -eq "0" ]; then
+    echo "${APP_NAME} is running. Pid is ${pid}"
+  else
+    echo "${APP_NAME} is NOT running."
+  fi
+}
+
+#重启
+restart(){
+  stop
+  start
+}
+
+#根据输入参数，选择执行对应方法，不输入则执行使用说明
+case "$1" in
+  "start")
+    start
+    ;;
+  "stop")
+    stop
+    ;;
+  "status")
+    status
+    ;;
+  "restart")
+    restart
+    ;;
+  *)
+    usage
+    ;;
 esac
- 
- 
-exit 0
