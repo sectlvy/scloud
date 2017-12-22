@@ -34,7 +34,7 @@ class OrderController {
 	public ReturnResult<SpOrder> serviceInstancesByApplicationName(@RequestParam String orderNo) {
 		ReturnResult<SpOrder> returnResult = new ReturnResult<SpOrder>();
 		ListServiceRsp<SpOrder> listServiceRsp = orderService.queryOrders();
-		returnResult.setData(listServiceRsp); ;
+		returnResult.setListData(listServiceRsp); ;
 		return returnResult;
 	}
 	

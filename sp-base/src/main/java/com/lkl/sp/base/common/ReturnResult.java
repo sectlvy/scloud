@@ -13,26 +13,18 @@ public class ReturnResult<T> implements Serializable {
 	private Integer totalSize;
 	private List<T> tlist = new ArrayList<>();
 
+	public void setListData(ListServiceRsp<T> listServiceRsp) {
+		this.totalSize = listServiceRsp.getTsize();
+		this.tlist = listServiceRsp.getDatalist();
+	}
+	
 	public ReturnResult() {
-	}
-
-	public ReturnResult(T data) {
-		this.data = data;
-	}
-
-	public ReturnResult(Integer totalSize, List<T> tlist) {
-		this.totalSize = totalSize;
-		this.tlist = tlist;
 	}
 
 	public T getData() {
 		return data;
 	}
 
-	public void setData(ListServiceRsp<T> listServiceRsp) {
-		this.totalSize = listServiceRsp.getTsize();
-		this.tlist = listServiceRsp.getDatalist();
-	}
 	public void setData(T data) {
 		this.data = data;
 	}
@@ -68,5 +60,6 @@ public class ReturnResult<T> implements Serializable {
 	public void setTlist(List<T> tlist) {
 		this.tlist = tlist;
 	}
+
 
 }
