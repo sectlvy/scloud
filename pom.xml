@@ -129,12 +129,17 @@
 		</plugins>
 	</build>
 
-	<modules>
-		<module>sp-search</module>
-		<module>sp-order</module>
-		<module>sp-base</module>
-		<module>sp-gservice</module>
-		<module>eureka-service</module>
-		<module>sp-db</module>
-	</modules>
+	<profiles>
+		<profile>
+			<id>sp-search</id>
+			<modules>
+				<module>sp-search</module>
+				<module>sp-order</module>
+				<module>sp-base</module>
+				<module>sp-gservice</module>
+				<module>eureka-service</module>
+				<module>sp-db</module>
+			</modules>
+		</profile>
+	</profiles>
 </project>
