@@ -15,7 +15,7 @@
 		<commentGenerator>
 			<property name="suppressAllComments" value="false" />
 		</commentGenerator>
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/spdb" userId="root" password="k413599655"> </jdbcConnection> 
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/spdb" userId="root" password="sunwell"> </jdbcConnection> 
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
